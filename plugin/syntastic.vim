@@ -274,10 +274,10 @@ endfunction
 
 if g:syntastic_enable_signs
     "define the signs used to display syntax and style errors/warns
-    sign define SyntasticError text=>> texthl=error
-    sign define SyntasticWarning text=>> texthl=todo
-    sign define SyntasticStyleError text=S> texthl=error
-    sign define SyntasticStyleWarning text=S> texthl=todo
+    sign define SyntasticError text=>> texthl=SignError
+    sign define SyntasticWarning text=>> texthl=SignWarning
+    sign define SyntasticStyleError text=S> texthl=SignSError
+    sign define SyntasticStyleWarning text=S> texthl=SignSWarning
 endif
 
 "start counting sign ids at 5000, start here to hopefully avoid conflicting
