@@ -26,6 +26,23 @@ endif
 if !exists("g:syntastic_enable_signs")
     let g:syntastic_enable_signs = 1
 endif
+
+if !exists("g:syntastic_error_symbol")
+    let g:syntastic_error_symbol = '>>'
+endif
+
+if !exists("g:syntastic_warning_symbol")
+    let g:syntastic_warning_symbol = '>>'
+endif
+
+if !exists("g:syntastic_style_error_symbol")
+    let g:syntastic_style_error_symbol = 'S>'
+endif
+
+if !exists("g:syntastic_style_warning_symbol")
+    let g:syntastic_style_warning_symbol = 'S>'
+endif
+
 if !has('signs')
     let g:syntastic_enable_signs = 0
 endif
@@ -274,10 +291,10 @@ endfunction
 
 if g:syntastic_enable_signs
     "define the signs used to display syntax and style errors/warns
-    sign define SyntasticError text=>> texthl=SignError
-    sign define SyntasticWarning text=>> texthl=SignWarning
-    sign define SyntasticStyleError text=S> texthl=SignSError
-    sign define SyntasticStyleWarning text=S> texthl=SignSWarning
+    exe 'sign define SyntasticError text='.g:syntastic_error_symbol.' texthl=SignError'
+    exe 'sign define SyntasticWarning text='.g:syntastic_warning_symbol.' texthl=SignWarning'
+    exe 'sign define SyntasticStyleError text='.g:syntastic_style_error_symbol.' texthl=SignSError'
+    exe 'sign define SyntasticStyleWarning text='.g:syntastic_style_warning_symbol.' texthl=SignSWarning'
 endif
 
 "start counting sign ids at 5000, start here to hopefully avoid conflicting
@@ -348,6 +365,7 @@ endfunction
 "display the cached errors for this buf in the location list
 function! s:ShowLocList()
     if !empty(s:LocList())
+        call setloclist(0, s:LocList())
         let num = winnr()
         exec "lopen " . g:syntastic_loc_list_height
         if num != winnr()
@@ -622,7 +640,7 @@ function! SyntasticLoadChecker(checkers, ft)
 
     if exists(opt_name)
         let opt_val = {opt_name}
-        if index(a:checkers, opt_val) != -1 && executable(opt_val)
+        if index(a:checkers, opt_val) != -1
             call s:LoadChecker(opt_val, a:ft)
         else
             echoerr &ft . " syntax not supported or not installed."
