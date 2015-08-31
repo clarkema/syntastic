@@ -490,18 +490,17 @@ function! SyntasticMake(options) abort " {{{2
     if has_key(a:options, 'errorformat')
         let &errorformat = a:options['errorformat']
     endif
-<<<<<<< HEAD
-endfunction
 
-if g:syntastic_enable_signs
-    "define the signs used to display syntax and style errors/warns
-    exe 'sign define SyntasticError text='.g:syntastic_error_symbol.' texthl=SignError'
-    exe 'sign define SyntasticWarning text='.g:syntastic_warning_symbol.' texthl=SignWarning'
-    exe 'sign define SyntasticStyleError text='.g:syntastic_style_error_symbol.' texthl=SignSError'
-    exe 'sign define SyntasticStyleWarning text='.g:syntastic_style_warning_symbol.' texthl=SignSWarning'
-endif
-=======
->>>>>>> master
+    " This is incorrect and commited only for archive purposes.
+    " The correct solution now is to use upstream Syntastic along with
+    " github.com:clarkema/vim-colors-solarized.git
+    if g:syntastic_enable_signs
+        "define the signs used to display syntax and style errors/warns
+        exe 'sign define SyntasticError text='.g:syntastic_error_symbol.' texthl=SignError'
+        exe 'sign define SyntasticWarning text='.g:syntastic_warning_symbol.' texthl=SignWarning'
+        exe 'sign define SyntasticStyleError text='.g:syntastic_style_error_symbol.' texthl=SignSError'
+        exe 'sign define SyntasticStyleWarning text='.g:syntastic_style_warning_symbol.' texthl=SignSWarning'
+    endif
 
     if has_key(a:options, 'cwd')
         execute 'lcd ' . fnameescape(a:options['cwd'])
